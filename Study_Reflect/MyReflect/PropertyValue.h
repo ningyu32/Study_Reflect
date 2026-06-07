@@ -19,17 +19,21 @@ namespace Reflection
 
         // ÀàÐÍ×ª»»
         template<typename T>
-        T Get() const {
-            try {
+        T Get() const 
+        {
+            try 
+            {
                 return std::any_cast<T>(m_Value);
             }
-            catch (const std::bad_any_cast&) {
+            catch (const std::bad_any_cast&) 
+            {
                 return T{};
             }
         }
 
         template<typename T>
-        void Set(const T& value) {
+        void Set(const T& value) 
+        {
             m_Value = value;
             m_TypeIndex = typeid(T);
         }

@@ -18,6 +18,7 @@ public:
     PROPERTY_VECTOR(int, Inventory)
 protected:
     //SceneComponent* RootComponent;
-	std::vector<std::unique_ptr<Actor>> ChildActors;
-	std::vector<std::unique_ptr<ActorComponent>> Components;
+	//std::vector<std::unique_ptr<Actor>> ChildActors;
+	//std::vector<std::unique_ptr<ActorComponent>> Components;
+    PROPERTY_VECTOR_UNIQUE_PTR(ActorComponent, Components)
 };

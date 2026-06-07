@@ -56,8 +56,10 @@ namespace Reflection {
             PropertyFlag flags,
             const PropertyMetaData& meta)
             : m_Name(name), m_Getter(getter), m_Setter(setter), m_Flags(flags), m_Meta(meta) {}
-        PropertyValue Get(Object* obj) const override {
-            if (auto ptr = m_Getter(obj)) return PropertyValue(*ptr);
+        PropertyValue Get(Object* obj) const override 
+        {
+            if (auto ptr = m_Getter(obj)) 
+                return PropertyValue(*ptr);
             return PropertyValue();
         }
         bool Set(Object* obj, const PropertyValue& value) override {
