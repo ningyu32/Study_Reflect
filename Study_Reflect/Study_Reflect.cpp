@@ -1,7 +1,4 @@
-﻿// Study_Reflect.cpp : 定义应用程序的入口点。
-//
-
-#include "framework.h"
+﻿#include "framework.h"
 #include "Study_Reflect.h"
 #include "Object.h"
 #include "Reflect/Reflection.h"
@@ -14,6 +11,7 @@
 
 #include "MyReflect/Registry.h"
 #include "Actor.h"
+#include "test/TestUI.h"
 
 #pragma comment(lib, "d3d11.lib")
 
@@ -27,30 +25,6 @@ static ID3D11Device* g_pd3dDevice = nullptr;
 static ID3D11DeviceContext* g_pd3dDeviceContext = nullptr;
 static IDXGISwapChain* g_pSwapChain = nullptr;
 static ID3D11RenderTargetView* g_mainRenderTargetView = nullptr;
-
-//class BasicReflectSample : public Object
-//{
-//    GENERATED_REFLECT_BODY(BasicReflectSample)
-//public:
-//    bool bEnabled = true;
-//    REGISTER_CLASS_PROPERTY(BasicReflectSample, bool, bEnabled);
-//
-//public:
-//    std::int32_t Health = 100;
-//    REGISTER_CLASS_PROPERTY(BasicReflectSample, std::int32_t, Health);
-//
-//public:
-//    std::uint32_t Level = 3;
-//    REGISTER_CLASS_PROPERTY(BasicReflectSample, std::uint32_t, Level);
-//
-//protected:
-//    float MoveSpeed = 320.0f;
-//    REGISTER_CLASS_PROPERTY(BasicReflectSample, float, MoveSpeed);
-//
-//private:
-//    double Energy = 75.0;
-//    REGISTER_CLASS_PROPERTY(BasicReflectSample, double, Energy);
-//};
 
 // 此代码模块中包含的函数的前向声明:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -88,7 +62,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_STUDYREFLECT));
 
     MSG msg;
-
+    SetupFullScreenUI();
     // 主消息循环:
     bool bDone = false;
     while (!bDone)
@@ -106,25 +80,39 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                 bDone = true;
             }
         }
-
         if (bDone)
         {
             break;
         }
-
         RenderReflectDemo();
     }
-
     return (int) msg.wParam;
 }
 
+void RenderReflectDemo()
+{
+    static bool bShowReflectDemo = true;
 
+    if (!bShowReflectDemo)
+    {
+        PostQuitMessage(0);
+        return;
+    }
 
-//
-//  函数: MyRegisterClass()
-//
-//  目标: 注册窗口类。
-//
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+
+    WidgetManager::Get().DrawAll();
+    ImGui::Render();
+
+    const float clearColor[4] = { 0.08f, 0.09f, 0.10f, 1.00f };
+    g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, nullptr);
+    g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, clearColor);
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+    g_pSwapChain->Present(1, 0);
+}
+
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
     WNDCLASSEXW wcex;
@@ -146,16 +134,6 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     return RegisterClassExW(&wcex);
 }
 
-//
-//   函数: InitInstance(HINSTANCE, int)
-//
-//   目标: 保存实例句柄并创建主窗口
-//
-//   注释:
-//
-//        在此函数中，我们在全局变量中保存实例句柄并
-//        创建和显示主程序窗口。
-//
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 将实例句柄存储在全局变量中
@@ -189,16 +167,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    return TRUE;
 }
 
-//
-//  函数: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
-//  目标: 处理主窗口的消息。
-//
-//  WM_COMMAND  - 处理应用程序菜单
-//  WM_PAINT    - 绘制主窗口
-//  WM_DESTROY  - 发送退出消息并返回
-//
-//
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
@@ -376,123 +344,3 @@ void CleanupRenderTarget()
         g_mainRenderTargetView = nullptr;
     }
 }
-
-void RenderReflectDemo()
-{
-    static bool bShowReflectDemo = true;
-    //static BasicReflectSample Sample;
-    //const Reflect::TypeInfo* Type = Sample.GetReflectType();
-
-    if (!bShowReflectDemo)
-    {
-        PostQuitMessage(0);
-        return;
-    }
-
-    ImGui_ImplDX11_NewFrame();
-    ImGui_ImplWin32_NewFrame();
-    ImGui::NewFrame();
-
-    ImGui::SetNextWindowSize(ImVec2(520, 420), ImGuiCond_FirstUseEver);
-    ImGui::Begin("Basic Reflection Demo", &bShowReflectDemo);
-    //ImGui::Text("Class: %s", Type->Name.data());
-    //ImGui::Text("Version: %u", Type->Version);
-    ImGui::Separator();
-
-    //for (const Reflect::PropertyInfo& Property : Type->Properties)
-    //{
-    //    //DrawBasicProperty(Property, &Sample);
-    //}
-    for (auto pair : Reflection::Register::Get()->GetAllClasses())
-    {
-        ImGui::Text(pair.first.c_str());
-    }
-    for (auto pair : Actor::GetStaticClassInfo()->GetAllProperties())
-    {
-        ImGui::Text(pair.first.c_str());
-    }
-    ImGui::BeginChild("test");
-    //测试界面
-    Actor* actor = Reflection::Register::Get()->CreateObject<Actor>();
-    
-    ImGui::EndChild();
-
-    ImGui::Separator();
-    if (ImGui::BeginTable("Schema", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg))
-    {
-        ImGui::TableSetupColumn("Field");
-        ImGui::TableSetupColumn("Type");
-        ImGui::TableSetupColumn("Offset");
-        ImGui::TableSetupColumn("Version");
-        ImGui::TableHeadersRow();
-
-        /*for (const Reflect::PropertyInfo& Property : Type->Properties)
-        {
-            ImGui::TableNextRow();
-            ImGui::TableSetColumnIndex(0);
-            ImGui::TextUnformatted(Property.Name.data());
-            ImGui::TableSetColumnIndex(1);
-            ImGui::TextUnformatted(Property.Type ? Property.Type->Name.data() : "unregistered");
-            ImGui::TableSetColumnIndex(2);
-            if (Property.Offset == static_cast<std::size_t>(-1))
-            {
-                ImGui::TextUnformatted("n/a");
-            }
-            else
-            {
-                ImGui::Text("%zu", Property.Offset);
-            }
-            ImGui::TableSetColumnIndex(3);
-            ImGui::Text("%u", Property.Version);
-        }*/
-        ImGui::EndTable();
-    }
-
-    ImGui::End();
-    ImGui::Render();
-
-    const float clearColor[4] = { 0.08f, 0.09f, 0.10f, 1.00f };
-    g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, nullptr);
-    g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, clearColor);
-    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-    g_pSwapChain->Present(1, 0);
-}
-
-//bool DrawBasicProperty(const Reflect::PropertyInfo& Property, void* Instance)
-//{
-//    if (Property.Type == nullptr)
-//    {
-//        ImGui::TextDisabled("%s: unregistered type", Property.Name.data());
-//        return false;
-//    }
-//
-//    void* Value = Property.GetValuePtr(Instance);
-//    switch (Property.Type->Kind)
-//    {
-//    case Reflect::TypeKind::Bool:
-//        return ImGui::Checkbox(Property.Name.data(), static_cast<bool*>(Value));
-//    case Reflect::TypeKind::Int8:
-//        return ImGui::InputScalar(Property.Name.data(), ImGuiDataType_S8, Value);
-//    case Reflect::TypeKind::UInt8:
-//        return ImGui::InputScalar(Property.Name.data(), ImGuiDataType_U8, Value);
-//    case Reflect::TypeKind::Int16:
-//        return ImGui::InputScalar(Property.Name.data(), ImGuiDataType_S16, Value);
-//    case Reflect::TypeKind::UInt16:
-//        return ImGui::InputScalar(Property.Name.data(), ImGuiDataType_U16, Value);
-//    case Reflect::TypeKind::Int32:
-//        return ImGui::InputScalar(Property.Name.data(), ImGuiDataType_S32, Value);
-//    case Reflect::TypeKind::UInt32:
-//        return ImGui::InputScalar(Property.Name.data(), ImGuiDataType_U32, Value);
-//    case Reflect::TypeKind::Int64:
-//        return ImGui::InputScalar(Property.Name.data(), ImGuiDataType_S64, Value);
-//    case Reflect::TypeKind::UInt64:
-//        return ImGui::InputScalar(Property.Name.data(), ImGuiDataType_U64, Value);
-//    case Reflect::TypeKind::Float:
-//        return ImGui::DragFloat(Property.Name.data(), static_cast<float*>(Value), 0.1f);
-//    case Reflect::TypeKind::Double:
-//        return ImGui::InputDouble(Property.Name.data(), static_cast<double*>(Value));
-//    default:
-//        ImGui::TextDisabled("%s: unsupported type", Property.Name.data());
-//        return false;
-//    }
-//}

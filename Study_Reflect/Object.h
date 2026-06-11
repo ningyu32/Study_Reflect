@@ -18,9 +18,6 @@ public:
 	virtual Reflection::ClassInfo* GetObjectClassInfo();
 	virtual std::string GetObjectClassName() const;
 
-	// 对象复制（需要子类实现）
-	virtual Object* Clone() const { return new Object(*this); }
-
 	// 序列化支持
 	virtual void Serialize(class ISerializer* serializer) {}
 	virtual void Deserialize(class ISerializer* serializer) {}

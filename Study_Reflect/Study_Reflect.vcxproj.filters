@@ -36,22 +36,82 @@
     <ClInclude Include="ActorComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Reflect\Reflection.h">
+    <ClInclude Include="Editor\IEditorUI.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Reflect\TypeInfo.h">
+    <ClInclude Include="Editor\PropertyDrawer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Reflect\Registry.h">
+    <ClInclude Include="SceneComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Reflect\ClassInfo.h">
+    <ClInclude Include="MyReflect\ClassInfo.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Reflect\BasicTypes.h">
+    <ClInclude Include="MyReflect\Property.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Reflect\ReflectionMacros.h">
+    <ClInclude Include="MyReflect\PropertyAccessor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyReflect\PropertyFlags.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyReflect\PropertyValue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyReflect\ReflectMarco.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyReflect\Registry.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyReflect\TypeTraits.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Serialization\Archive.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Serialization\ISerializer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\core\Widget.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\core\WidgetManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\core\Slot.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\component\PanelWidget.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\component\CanvasPanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\component\VerticalBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\component\HorizontalBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\component\SizeBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\widget\TextBlock.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\widget\Button.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\animation\WidgetAnimation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="test\TestUI.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\component\FullScreenPanel.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -66,9 +126,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ActorComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Reflect\Reflection.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\ning\Downloads\imgui\imgui-master\imgui.cpp">
@@ -87,6 +144,45 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\ning\Downloads\imgui\imgui-master\backends\imgui_impl_dx11.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MyReflect\ClassInfo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\core\Widget.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\core\WidgetManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\core\Slot.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\component\PanelWidget.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\component\CanvasPanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\component\VerticalBox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\component\HorizontalBox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\component\SizeBox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\widget\TextBlock.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\widget\Button.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\animation\WidgetAnimation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\component\FullScreenPanel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

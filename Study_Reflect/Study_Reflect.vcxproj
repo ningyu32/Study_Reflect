@@ -153,8 +153,21 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Serialization\Archive.h" />
     <ClInclude Include="Serialization\ISerializer.h" />
+    <ClInclude Include="test\TestUI.h" />
+    <ClInclude Include="ui\animation\WidgetAnimation.h" />
+    <ClInclude Include="ui\component\CanvasPanel.h" />
+    <ClInclude Include="ui\component\FullScreenPanel.h" />
+    <ClInclude Include="ui\component\HorizontalBox.h" />
+    <ClInclude Include="ui\component\PanelWidget.h" />
+    <ClInclude Include="ui\component\SizeBox.h" />
+    <ClInclude Include="ui\component\VerticalBox.h" />
+    <ClInclude Include="ui\core\Slot.h" />
     <ClInclude Include="Study_Reflect.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="ui\core\Widget.h" />
+    <ClInclude Include="ui\core\WidgetManager.h" />
+    <ClInclude Include="ui\widget\Button.h" />
+    <ClInclude Include="ui\widget\TextBlock.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
@@ -167,7 +180,19 @@
     <ClCompile Include="C:\Users\ning\Downloads\imgui\imgui-master\imgui_widgets.cpp" />
     <ClCompile Include="MyReflect\ClassInfo.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="ui\animation\WidgetAnimation.cpp" />
+    <ClCompile Include="ui\component\CanvasPanel.cpp" />
+    <ClCompile Include="ui\component\FullScreenPanel.cpp" />
+    <ClCompile Include="ui\component\HorizontalBox.cpp" />
+    <ClCompile Include="ui\component\PanelWidget.cpp" />
+    <ClCompile Include="ui\component\SizeBox.cpp" />
+    <ClCompile Include="ui\component\VerticalBox.cpp" />
+    <ClCompile Include="ui\core\Slot.cpp" />
     <ClCompile Include="Study_Reflect.cpp" />
+    <ClCompile Include="ui\core\Widget.cpp" />
+    <ClCompile Include="ui\core\WidgetManager.cpp" />
+    <ClCompile Include="ui\widget\Button.cpp" />
+    <ClCompile Include="ui\widget\TextBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Study_Reflect.rc" />
