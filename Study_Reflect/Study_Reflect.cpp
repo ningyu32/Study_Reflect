@@ -12,6 +12,7 @@
 #include "MyReflect/Registry.h"
 #include "Actor.h"
 #include "test/TestUI.h"
+#include <chrono>
 
 #pragma comment(lib, "d3d11.lib")
 
@@ -35,7 +36,7 @@ bool                CreateDeviceD3D(HWND hWnd);
 void                CleanupDeviceD3D();
 void                CreateRenderTarget();
 void                CleanupRenderTarget();
-void                RenderReflectDemo();
+void                RenderReflectDemo(float);
 bool                DrawBasicProperty(const Reflect::PropertyInfo& Property, void* Instance);
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -65,6 +66,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     SetupFullScreenUI();
     // 主消息循环:
     bool bDone = false;
+    const auto start_time = std::chrono::steady_clock::now();
     while (!bDone)
     {
         while (PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE))
@@ -84,12 +86,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         {
             break;
         }
-        RenderReflectDemo();
+        const auto now = std::chrono::steady_clock::now();
+        float elapsed_seconds = std::chrono::duration<float>(now - start_time).count();
+        RenderReflectDemo(elapsed_seconds);
     }
     return (int) msg.wParam;
 }
 
-void RenderReflectDemo()
+void RenderReflectDemo(float elapsed_seconds)
 {
     static bool bShowReflectDemo = true;
 
@@ -102,8 +106,9 @@ void RenderReflectDemo()
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
-
-    WidgetManager::Get().DrawAll();
+    DemoSettings settings;
+    DrawGameHud(settings, elapsed_seconds);
+    //WidgetManager::Get().DrawAll();
     ImGui::Render();
 
     const float clearColor[4] = { 0.08f, 0.09f, 0.10f, 1.00f };
